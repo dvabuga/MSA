@@ -6,20 +6,27 @@ namespace MSA
 {
     class Program
     {
+        static int Lenght;
+        static int End;
+
         static void Main(string[] args)
         {
             var input = "abc";
 
             byte[] array = Encoding.Default.GetBytes(input.ToCharArray());
             array = array.OrderBy(x => x).ToArray();
+
+            Lenght = array.Length;
+            End = Lenght - 1;
+
             Console.WriteLine(Encoding.Default.GetString(array));
 
             var startTime = System.Diagnostics.Stopwatch.StartNew();
-            GetPermutations(array);
+            GetPermutationAndPrint(array);
             startTime.Stop();
             var resultTime = startTime.Elapsed;
 
-            
+
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
                 resultTime.Hours,
                 resultTime.Minutes,
@@ -30,9 +37,9 @@ namespace MSA
             Console.ReadLine();
         }
 
-        static void GetPermutations(byte[] arr)
+        static void GetPermutationAndPrint(byte[] arr)
         {
-            if (arr.Length == 0)
+            if (Lenght == 0)
             {
                 Console.WriteLine("Array is empty");
             }
@@ -48,19 +55,17 @@ namespace MSA
                 }
                 var index2 = GetIndex2(arr, index1);
                 Swap(arr, index1, index2);
-                var perm = Reverse(arr, index1);
-                Console.WriteLine(Encoding.Default.GetString(arr));
+                Reverse(arr, index1);
+               Console.WriteLine(Encoding.Default.GetString(arr));
             }
         }
 
 
         static int GetIndex1(byte[] arr)
         {
-            var lenght = arr.Length;
-            var end = lenght - 1;
             int index1 = -1;
 
-            for (var i = end; i != 0; i--)
+            for (var i = End; i != 0; i--)
             {
                 if (arr[i] > arr[i - 1])
                 {
@@ -75,11 +80,9 @@ namespace MSA
 
         static int GetIndex2(byte[] arr, int index1)
         {
-            var lenght = arr.Length;
-            var end = lenght - 1;
             int index2 = -1;
 
-            for (var i = end; i != 0; i--)
+            for (var i = End; i != 0; i--)
             {
                 if (arr[i] > arr[index1])
                 {
@@ -91,25 +94,18 @@ namespace MSA
             return index2;
         }
 
-        static byte[] Swap(byte[] arr, int index1, int index2)
+        static void Swap(byte[] arr, int index1, int index2)
         {
             byte temp;
             temp = arr[index1];
             arr[index1] = arr[index2];
             arr[index2] = temp;
-            return arr;
         }
 
 
-        static byte[] Reverse(byte[] arr, int index1)
+        static void Reverse(byte[] arr, int index1)
         {
-            var lenght = arr.Length;
-            var end = lenght - 1;
-            
-            
-            Array.Reverse(arr, index1 + 1, end - index1);
-
-            return arr;
+            Array.Reverse(arr, index1 + 1, End - index1);
         }
     }
 }
