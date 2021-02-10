@@ -11,17 +11,15 @@ namespace MSA
 
         static void Main(string[] args)
         {
-            var input = "abc";
+            var input = "abclxk";
 
-            //var aaaa = input.ToCharArray();
-            byte[] array = Encoding.Default.GetBytes(input.ToCharArray());
+            char[] array = input.ToCharArray();
             array = array.OrderBy(x => x).ToArray();
-
 
             Lenght = array.Length;
             End = Lenght - 1;
 
-            Console.WriteLine(Encoding.Default.GetString(array));
+            Console.WriteLine(new string(array));
 
             var startTime = System.Diagnostics.Stopwatch.StartNew();
             GetPermutationAndPrint(array);
@@ -39,7 +37,7 @@ namespace MSA
             Console.ReadLine();
         }
 
-        static void GetPermutationAndPrint(byte[] arr)
+        static void GetPermutationAndPrint(char[] arr)
         {
             if (Lenght == 0)
             {
@@ -58,12 +56,12 @@ namespace MSA
                 var index2 = GetIndex2(arr, index1);
                 Swap(arr, index1, index2);
                 Reverse(arr, index1);
-                Console.WriteLine(Encoding.Default.GetString(arr));
+                Console.WriteLine(new string(arr));
             }
         }
 
 
-        static int GetIndex1(byte[] arr)
+        static int GetIndex1(char[] arr)
         {
             int index1 = -1;
 
@@ -80,7 +78,7 @@ namespace MSA
         }
 
 
-        static int GetIndex2(byte[] arr, int index1)
+        static int GetIndex2(char[] arr, int index1)
         {
             int index2 = -1;
 
@@ -96,14 +94,14 @@ namespace MSA
             return index2;
         }
 
-        static void Swap(byte[] arr, int index1, int index2)
+        static void Swap(char[] arr, int index1, int index2)
         {
             //деконструкция туплов
             (arr[index1], arr[index2]) = (arr[index2], arr[index1]);
         }
 
 
-        static void Reverse(byte[] arr, int index1)
+        static void Reverse(char[] arr, int index1)
         {
             Array.Reverse(arr, index1 + 1, End - index1);
         }
