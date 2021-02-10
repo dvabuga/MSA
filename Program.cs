@@ -13,8 +13,10 @@ namespace MSA
         {
             var input = "abc";
 
+            //var aaaa = input.ToCharArray();
             byte[] array = Encoding.Default.GetBytes(input.ToCharArray());
             array = array.OrderBy(x => x).ToArray();
+
 
             Lenght = array.Length;
             End = Lenght - 1;
@@ -56,7 +58,7 @@ namespace MSA
                 var index2 = GetIndex2(arr, index1);
                 Swap(arr, index1, index2);
                 Reverse(arr, index1);
-               Console.WriteLine(Encoding.Default.GetString(arr));
+                Console.WriteLine(Encoding.Default.GetString(arr));
             }
         }
 
@@ -96,10 +98,8 @@ namespace MSA
 
         static void Swap(byte[] arr, int index1, int index2)
         {
-            byte temp;
-            temp = arr[index1];
-            arr[index1] = arr[index2];
-            arr[index2] = temp;
+            //деконструкция туплов
+            (arr[index1], arr[index2]) = (arr[index2], arr[index1]);
         }
 
 
